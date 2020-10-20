@@ -34,3 +34,19 @@ exceeding full-scale.
 | (-0.5vref/128)(2^23 - 1) | 0xffffff     |
 | <= -0.5Vref/128          | 0x800000     |
 
+###### ADS1231 `#DRDY/DOUT` pin
+This digital pin serves two purposes. First, it indicates when new data are
+ready by going low. Afterwards, on the first rising edge of `SCLK`, the
+`#DRDY/DOUT` pin changes function and begins outputting the conversion data,
+MSB first. Data are shifted out on each subsequent `SCLK` rising edge. After
+all 24 bits have been retrieved, the pin can be forced high with an additional
+`SCLK`. It then stays high until new data are ready.
+
+###### ADS1231 Standby Mode Timing( cna be used for single conversions)
+To enter Standby mode, simply hold `SCLK` high. Standby mode can be initiated
+at any time during readback; it is not necessary to retrieve all 24 bits of
+data beforehand. When t\_standby has passed with `SCLK` held high, Standby
+mode activates. `#DRDY/DOUT` stays high when Standby mode begins. `SCLK` must
+remain high to stay in Standby mode. To exit Standby mode, set `SCLK` low.
+
+![Standby\_timings](docs/ADS1231_standBy_timing.png)
