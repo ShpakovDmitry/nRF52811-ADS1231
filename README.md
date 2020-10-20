@@ -16,4 +16,5 @@ Below are schematics showing how `ADS1231` is interfaced with `nRF52811`:
 +-----------------+           +------------------+
 ```
 
-* [ADS features_](/docs/ADS1231_features.md)
+* [Schematics](docs/schematics.md)
+* [ADS features](/docs/ADS1231_features.md)
