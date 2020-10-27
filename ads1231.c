@@ -1,22 +1,17 @@
 #include <stdint.h>
 #include "ads1231.h"
+#include "ads1231_misc.h"
 
 void ADS1231_init(void) {
-    //TODO add implementation
+    initBus();
+    enterStandByMode();
 }
 
 int32_t ADS1231_getData(void) {
-    //TODO add implementation
+    leaveStandByMode();
+    uint32_t data;
+    data = getBits();
+    enterStandByMode();
+    return convertTwosToOnesComplement(data);
 }
 
-static void setSckHigh(void) {
-    //TODO add implementation
-}
-
-static void setSckLow(void) {
-    //TODO add implementation
-}
-
-static uint8_t getDout(void) {
-    //TODO add implementation
-}
