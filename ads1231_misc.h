@@ -17,5 +17,6 @@ void setSckAsOutput(void);
 void setDataOutAsInput(void);
 bool isTwosComplementNegative(uint32_t data, uint8_t dataBits);
 uint32_t inverseTwosComplement(uint32_t data, uint8_t dataBits);
+void delaySckSet(void);
 
 #endif  // ADS1231_MISC_H

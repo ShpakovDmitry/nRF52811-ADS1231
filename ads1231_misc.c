@@ -71,11 +71,13 @@ int32_t convertTwosToOnesComplement(uint32_t data) {
 }
 
 void setSckHigh(void) {
-    //TODO add implementation
+    gpio0->OUTSET = (1 << SCK_PIN);
+    delaySckSet();
 }
 
 void setSckLow(void) {
-    //TODO add implementation
+    gpio0->OUTCLR = (1 << SCK_PIN);
+    delaySckSet();
 }
 
 uint8_t getDataOut(void) {
@@ -104,4 +106,8 @@ uint32_t inverseTwosComplement(uint32_t data, uint8_t dataBits) {
     }                                       // value.
     data = ~data;
     data++;
+}
+
+void delaySckSet(void) {
+    //TODO add implementation
 }
