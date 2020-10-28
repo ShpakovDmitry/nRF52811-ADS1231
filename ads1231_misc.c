@@ -87,11 +87,11 @@ void delay_ms(uint32_t ms) {
 }
 
 void setSckAsOutput(void) {
-    //TODO add implementation
+    gpio0->DIRSET = (1 << SCK_PIN);
 }
 
 void setDataOutAsInput(void) {
-    //TODO add implementation
+    gpio0->DIRCLR = (1 << DOUT_PIN);
 }
 
 bool isTwosComplementNegative(uint32_t data, uint8_t dataBits) {
