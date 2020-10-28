@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdbool.h>
 #include "ads1231_misc.h"
 
 static const uint32_t T_STANDBY_MS = 100;
@@ -71,4 +72,16 @@ void setSckAsOutput(void) {
 
 void setDataOutAsInput(void) {
     //TODO add implementation
+}
+
+bool isTwosComplementNegative(uint32_t data, uint8_t dataBits) {
+    return (data & (1 << dataBits)) ? true : false;
+}
+
+uint32_t inverseTwosComplement(uint32_t data, uint8_t dataBits) {
+    if (data == (1 << (dataBits - 1))) {    // proper handle of the edge case
+        data--;                             // when data is equal to max. neg.
+    }                                       // value.
+    data = ~data;
+    data++;
 }
