@@ -81,7 +81,7 @@ void setSckLow(void) {
 }
 
 uint8_t getDataOut(void) {
-    //TODO add implementation
+    return (gpio0->IN & (1 << DOUT_PIN));
 }
 
 void delay_ms(uint32_t ms) {
