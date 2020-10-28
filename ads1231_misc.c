@@ -1,15 +1,23 @@
+#include <stdint.h>
 #include "ads1231_misc.h"
 
+static const uint32_t T_STANDBY_MS = 100;
+static const uint32_t T_DATA_READY_MS = 402;
+
 void initBus(void) {
-    //TODO add implementation
+    setSckAsOutput();
+    setDataOutAsInput();
+    setSckLow();
 }
 
 void enterStandByMode(void) {
-    //TODO add implementation
+    setSckHigh();
+    delay_ms(T_STANDBY_MS);
 }
 
 void leaveStandByMode(void) {
-    //TODO add implementation
+    setSckLow();
+    delay_ms(T_DATA_READY_MS);
 }
 
 uint32_t getBits(void) {
