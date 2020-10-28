@@ -1,6 +1,8 @@
 #ifndef ADS1231_MISC_H
 #define ADS1231_MISC_H
 
+#include <stdint.h>
+
 void initBus(void);
 void enterStandByMode(void);
 void leaveStandByMode(void);

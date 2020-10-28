@@ -27,15 +27,26 @@ uint32_t getBits(void) {
     setSckLow();
     for (uint8_t i = 0; i < DATA_BITS; ++i) {
         setSckHigh();
-        uint8_t dataBit;
-        dataBit = getDataOut();
-
+        tmp |= getDataOut();
+        tmp <<= 1;
+        setSckLow();
     }
-    //TODO add implementation
+    return tmp;
 }
 
 int32_t convertTwosToOnesComplement(uint32_t data) {
-    //TODO add implementation
+    bool isNegative = false;
+    int32_t tmp = 0;
+
+    isNegative = isTwosComplementNegative(data, DATA_BITS);
+    if (isNegative == true) {
+        data = inverseTwosComplement(data, DATA_BITS);
+    }
+    tmp = (int32_t) data;
+    if (isNegative == true) {
+        tmp *= -1;
+    }
+    return tmp;
 }
 
 void setSckHigh(void) {
