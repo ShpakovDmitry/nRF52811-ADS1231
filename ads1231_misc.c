@@ -52,6 +52,7 @@ uint32_t getBits(void) {
         tmp <<= 1;
         setSckLow();
     }
+    tmp >>= 1;
     return tmp;
 }
 
@@ -97,15 +98,14 @@ void setDataOutAsInput(void) {
 }
 
 bool isTwosComplementNegative(uint32_t data, uint8_t dataBits) {
-    return (data & (1 << dataBits)) ? true : false;
+    return (data & (1 << (dataBits - 1))) ? true : false;
 }
 
 uint32_t inverseTwosComplement(uint32_t data, uint8_t dataBits) {
-    if (data == (1 << (dataBits - 1))) {    // proper handle of the edge case
-        data--;                             // when data is equal to max. neg.
-    }                                       // value.
     data = ~data;
     data++;
+    data &= ((1<<dataBits) - 1);
+    return data;
 }
 
 void delaySckSet(void) {
