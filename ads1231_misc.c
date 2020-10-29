@@ -5,7 +5,7 @@
 static const uint32_t T_STANDBY_MS = 100;
 static const uint32_t T_DATA_READY_MS = 402;
 static const uint8_t DATA_BITS = 24;
-static const uint32_t GPIO_PORT_0_BASE_ADDRESS 0x50000000u
+static const uint32_t GPIO_PORT_0_BASE_ADDRESS = 0x50000000u;
 static const uint8_t DOUT_PIN = 11;
 static const uint8_t SCK_PIN = 12;
 
