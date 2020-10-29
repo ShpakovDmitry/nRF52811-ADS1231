@@ -109,5 +109,14 @@ uint32_t inverseTwosComplement(uint32_t data, uint8_t dataBits) {
 }
 
 void delaySckSet(void) {
-    //TODO add implementation
+    __asm__("nop");
+    __asm__("nop");
+    __asm__("nop");
+    __asm__("nop");
+    __asm__("nop");
+    __asm__("nop");
+    __asm__("nop");
+    __asm__("nop");
+    __asm__("nop");
+    __asm__("nop");
 }
