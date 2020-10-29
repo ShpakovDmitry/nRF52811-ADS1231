@@ -85,8 +85,15 @@ uint8_t getDataOut(void) {
     return (gpio0->IN & (1 << DOUT_PIN));
 }
 
-void delay_ms(uint32_t ms) {
-    //TODO add implementation
+__attribute__((weak)) void delay_ms(uint32_t ms) {
+    volatile uint32_t i;
+    volatile uint32_t j;
+    static const uint32_t ONE_MS_CYCLES = 0x0000fa00; // should be adjusted
+    for (i = 0; i < ms; i++) {
+        for (j = 0; j < ONE_MS_CYCLES; j++) {
+            __asm__ ("nop");
+        }
+    }
 }
 
 void setSckAsOutput(void) {
