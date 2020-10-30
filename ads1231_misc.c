@@ -26,6 +26,52 @@ typedef volatile struct __attribute__((packed)) {
 
 static GPIO_Registers* gpio0 = (GPIO_Registers* ) GPIO_PORT_0_BASE_ADDRESS;
 
+__attribute__((naked)) static void delaySckSet(void) {
+    __asm__ volatile("nop");
+    __asm__ volatile("nop");
+    __asm__ volatile("nop");
+    __asm__ volatile("nop");
+    __asm__ volatile("nop");
+    __asm__ volatile("nop");
+    __asm__ volatile("nop");
+    __asm__ volatile("nop");
+    __asm__ volatile("nop");
+    __asm__ volatile("nop");
+}
+
+static bool isTwosComplementNegative(uint32_t data, uint8_t dataBits) {
+    return (data & (1 << (dataBits - 1))) ? true : false;
+}
+
+static uint32_t inverseTwosComplement(uint32_t data, uint8_t dataBits) {
+    data = ~data;
+    data++;
+    data &= ((1<<dataBits) - 1);
+    return data;
+}
+
+static void setSckHigh(void) {
+    gpio0->OUTSET = (1 << SCK_PIN);
+    delaySckSet();
+}
+
+static void setSckLow(void) {
+    gpio0->OUTCLR = (1 << SCK_PIN);
+    delaySckSet();
+}
+
+static uint8_t getDataOut(void) {
+    return (gpio0->IN & (1 << DOUT_PIN));
+}
+
+static void setSckAsOutput(void) {
+    gpio0->DIRSET = (1 << SCK_PIN);
+}
+
+static void setDataOutAsInput(void) {
+    gpio0->DIRCLR = (1 << DOUT_PIN);
+}
+
 void initBus(void) {
     setSckAsOutput();
     setDataOutAsInput();
@@ -71,59 +117,14 @@ int32_t convertTwosToOnesComplement(uint32_t data) {
     return tmp;
 }
 
-void setSckHigh(void) {
-    gpio0->OUTSET = (1 << SCK_PIN);
-    delaySckSet();
-}
-
-void setSckLow(void) {
-    gpio0->OUTCLR = (1 << SCK_PIN);
-    delaySckSet();
-}
-
-uint8_t getDataOut(void) {
-    return (gpio0->IN & (1 << DOUT_PIN));
-}
-
 __attribute__((weak)) void delay_ms(uint32_t ms) {
     volatile uint32_t i;
     volatile uint32_t j;
     static const uint32_t ONE_MS_CYCLES = 0x0000fa00; // should be adjusted
     for (i = 0; i < ms; i++) {
         for (j = 0; j < ONE_MS_CYCLES; j++) {
-            __asm__ ("nop");
+            __asm__ volatile("nop");
         }
     }
 }
 
-void setSckAsOutput(void) {
-    gpio0->DIRSET = (1 << SCK_PIN);
-}
-
-void setDataOutAsInput(void) {
-    gpio0->DIRCLR = (1 << DOUT_PIN);
-}
-
-bool isTwosComplementNegative(uint32_t data, uint8_t dataBits) {
-    return (data & (1 << (dataBits - 1))) ? true : false;
-}
-
-uint32_t inverseTwosComplement(uint32_t data, uint8_t dataBits) {
-    data = ~data;
-    data++;
-    data &= ((1<<dataBits) - 1);
-    return data;
-}
-
-void delaySckSet(void) {
-    __asm__("nop");
-    __asm__("nop");
-    __asm__("nop");
-    __asm__("nop");
-    __asm__("nop");
-    __asm__("nop");
-    __asm__("nop");
-    __asm__("nop");
-    __asm__("nop");
-    __asm__("nop");
-}
