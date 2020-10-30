@@ -90,7 +90,7 @@ void leaveStandByMode(void) {
 
 uint32_t getBits(void) {
     uint32_t tmp = 0x00000000;
-    
+    //TODO for proper work must wait until DOUT pin goes low and then read data
     setSckLow();
     for (uint8_t i = 0; i < DATA_BITS; ++i) {
         setSckHigh();
