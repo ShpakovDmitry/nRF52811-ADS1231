@@ -53,5 +53,7 @@ int32_t ADS1231_getData(void);  // value in range -8388608 <= x <= 8388607
 
 ```
 
-Note: after data readout `ADS1231` IC is pushed in `STANDBY` mode.
+> :warning: **after data readout**, `ADS1231` IC is pushed in **STANDBY** mode.
+> :warning: As for proper timings, time delays are needed and no hardware timer
+is used, delay loop is used. 
 
