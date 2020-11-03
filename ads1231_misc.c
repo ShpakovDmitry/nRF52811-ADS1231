@@ -39,37 +39,44 @@ __attribute__((naked)) static void delaySckSet(void) {
     __asm__ volatile("nop");
 }
 
-static bool isTwosComplementNegative(uint32_t data, uint8_t dataBits) {
+__attribute__ ((noinline)) static bool isTwosComplementNegative(uint32_t data, uint8_t dataBits) {
     return (data & (1 << (dataBits - 1))) ? true : false;
 }
 
-static uint32_t inverseTwosComplement(uint32_t data, uint8_t dataBits) {
+__attribute__ ((noinline)) static uint32_t inverseTwosComplement(uint32_t data, uint8_t dataBits) {
     data = ~data;
     data++;
     data &= ((1<<dataBits) - 1);
     return data;
 }
 
-static void setSckHigh(void) {
+__attribute__ ((noinline)) static void setSckHigh(void) {
     gpio0->OUTSET = (1 << SCK_PIN);
     delaySckSet();
 }
 
-static void setSckLow(void) {
+__attribute__ ((noinline)) static void setSckLow(void) {
     gpio0->OUTCLR = (1 << SCK_PIN);
     delaySckSet();
 }
 
-static uint8_t getDataOut(void) {
+__attribute__ ((noinline)) static uint8_t getDataOut(void) {
     return (gpio0->IN & (1 << DOUT_PIN));
 }
 
-static void setSckAsOutput(void) {
+__attribute__ ((noinline)) static void setSckAsOutput(void) {
     gpio0->DIRSET = (1 << SCK_PIN);
 }
 
-static void setDataOutAsInput(void) {
+__attribute__ ((noinline)) static void setDataOutAsInput(void) {
     gpio0->DIRCLR = (1 << DOUT_PIN);
+}
+
+__attribute__ ((noinline)) static void waitUntilDoutIsHigh(void) {
+    uint8_t isHigh;
+    do {
+        isHigh = getDataOut();
+    } while ( isHigh );
 }
 
 void initBus(void) {
@@ -90,7 +97,7 @@ void leaveStandByMode(void) {
 
 uint32_t getBits(void) {
     uint32_t tmp = 0x00000000;
-    //TODO for proper work must wait until DOUT pin goes low and then read data
+    waitUntilDoutIsHigh();
     setSckLow();
     for (uint8_t i = 0; i < DATA_BITS; ++i) {
         setSckHigh();
