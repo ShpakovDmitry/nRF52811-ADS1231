@@ -79,23 +79,23 @@ __attribute__ ((noinline)) static void waitUntilDoutIsHigh(void) {
     } while ( isHigh );
 }
 
-void initBus(void) {
+void ADS1231_initBus(void) {
     setSckAsOutput();
     setDataOutAsInput();
     setSckLow();
 }
 
-void enterStandByMode(void) {
+void ADS1231_enterStandByMode(void) {
     setSckHigh();
-    delay_ms(T_STANDBY_MS);
+    ADS1231_delay_ms(T_STANDBY_MS);
 }
 
-void leaveStandByMode(void) {
+void ADS1231_leaveStandByMode(void) {
     setSckLow();
-    delay_ms(T_DATA_READY_MS);
+    ADS1231_delay_ms(T_DATA_READY_MS);
 }
 
-uint32_t getBits(void) {
+uint32_t ADS1231_getBits(void) {
     uint32_t tmp = 0x00000000;
     waitUntilDoutIsHigh();
     setSckLow();

@@ -4,11 +4,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-void initBus(void);
-void enterStandByMode(void);
-void leaveStandByMode(void);
-uint32_t getBits(void);
+void ADS1231_initBus(void);
+void ADS1231_enterStandByMode(void);
+void ADS1231_leaveStandByMode(void);
+uint32_t ADS1231_getBits(void);
 int32_t convertTwosToOnesComplement(uint32_t data);
-void delay_ms(uint32_t ms);
+void ADS1231_delay_ms(uint32_t ms);
 
 #endif  // ADS1231_MISC_H

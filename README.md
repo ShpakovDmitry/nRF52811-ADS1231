@@ -60,5 +60,5 @@ is used, delay loop is used. This may lead to inaccurate timings. If this
 causes the problems then simply define `delay_ms()` routine somewhere else in
 the code. This routine prototype is the following:
 ```c
-void delay_ms(uint32_t ms);
+void ADS1231_delay_ms(uint32_t ms);
 ```
