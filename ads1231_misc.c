@@ -124,10 +124,9 @@ int32_t convertTwosToOnesComplement(uint32_t data) {
     return tmp;
 }
 
-__attribute__((weak)) void delay_ms(uint32_t ms) {
-    volatile uint32_t i;
-    volatile uint32_t j;
-    static const uint32_t ONE_MS_CYCLES = 0x00000DF5; // should be adjusted
+__attribute__((weak, optimize("O0"))) void delay_ms(uint32_t ms) {
+    uint32_t i, j;
+    static const uint32_t ONE_MS_CYCLES = 0x00000AEB; // should be adjusted
     for (i = 0; i < ms; i++) {                        // but this walue seems
         for (j = 0; j < ONE_MS_CYCLES; j++) {         // to be Okay
             __asm__ volatile("nop");
