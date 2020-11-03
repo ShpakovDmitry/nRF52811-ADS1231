@@ -56,5 +56,9 @@ int32_t ADS1231_getData(void);  // value in range -8388608 <= x <= 8388607
 > :warning: **after data readout**, `ADS1231` IC is pushed in **STANDBY** mode.
 
 > :warning: As for proper timings, time delays are needed and no hardware timer
-is used, delay loop is used. 
-
+is used, delay loop is used. This may lead to inaccurate timings. If it causes
+the problems then simply define `delay_ms()` routine somewhere else in the
+code. This routine prototype is the following:
+```c
+void delay_ms(uint32_t ms);
+```
