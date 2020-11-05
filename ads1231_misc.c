@@ -124,7 +124,7 @@ int32_t convertTwosToOnesComplement(uint32_t data) {
     return tmp;
 }
 
-__attribute__((weak, optimize("O0"))) void delay_ms(uint32_t ms) {
+__attribute__((weak, optimize("O0"))) void ADS1231_delay_ms(uint32_t ms) {
     uint32_t i, j;
     static const uint32_t ONE_MS_CYCLES = 0x00000AEB; // should be adjusted
     for (i = 0; i < ms; i++) {                        // but this walue seems
