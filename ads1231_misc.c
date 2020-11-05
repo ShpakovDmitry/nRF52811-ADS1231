@@ -24,7 +24,7 @@ typedef volatile struct __attribute__((packed)) {
     uint32_t PIN_CNF[32];       /* 0x700 - 0x77C Configuration of GPIO pins*/
 } GPIO_Registers;
 
-static GPIO_Registers* gpio0 = (GPIO_Registers* ) GPIO_PORT_0_BASE_ADDRESS;
+static GPIO_Registers* const gpio0 = (GPIO_Registers* ) GPIO_PORT_0_BASE_ADDRESS;
 
 __attribute__((naked)) static void delaySckSet(void) {
     __asm__ volatile("nop");
