@@ -26,7 +26,7 @@ typedef volatile struct __attribute__((packed)) {
 
 static GPIO_Registers* const gpio0 = (GPIO_Registers* ) GPIO_PORT_0_BASE_ADDRESS;
 
-__attribute__((naked)) static void delaySckSet(void) {
+static void delaySckSet(void) {
     __asm__ volatile("nop");
     __asm__ volatile("nop");
     __asm__ volatile("nop");
